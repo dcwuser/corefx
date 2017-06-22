@@ -1937,6 +1937,74 @@ namespace System.Numerics.Tests
             VerifyRealImaginaryProperties(complex, (double)value, 0);
         }
         
+        [Theory]
+        [MemberData(nameof(Mixed_TestData))]
+        public static void MixedComplexDoubleArithmetic (double real, double complexRe, double complexIm)
+        {
+            Complex realAsComplex = (Complex)real;
+            Complex complex = new Complex(complexRe, complexIm);
+
+            Complex mixed, pure;
+
+            mixed = real + complex;
+            pure = realAsComplex + complex;
+            VerifyRealImaginaryProperties(mixed, pure.Real, pure.Imaginary);
+
+            mixed = complex + real;
+            pure = complex + realAsComplex;
+            VerifyRealImaginaryProperties(mixed, pure.Real, pure.Imaginary);
+
+            mixed = real - complex;
+            pure = realAsComplex - complex;
+            VerifyRealImaginaryProperties(mixed, pure.Real, pure.Imaginary);
+
+            mixed = complex - real;
+            pure = complex - realAsComplex;
+            VerifyRealImaginaryProperties(mixed, pure.Real, pure.Imaginary);
+
+            mixed = real * complex;
+            pure = realAsComplex * complex;
+            VerifyRealImaginaryProperties(mixed, pure.Real, pure.Imaginary);
+
+            mixed = complex * real;
+            pure = complex * realAsComplex;
+            VerifyRealImaginaryProperties(mixed, pure.Real, pure.Imaginary);
+
+            mixed = complex / real;
+            pure = complex / realAsComplex;
+            VerifyRealImaginaryProperties(mixed, pure.Real, pure.Imaginary);
+        }
+
+        public static IEnumerable<object[]> Mixed_TestData ()
+        {
+            foreach (double x in Real_TestData())
+            {
+                foreach (double re in Real_TestData())
+                {
+                    foreach (double im in Real_TestData())
+                    {
+                        yield return new object[] { x, re, im };
+                    }
+                }
+            }
+        }
+
+        public static IEnumerable<double> Real_TestData ()
+        {
+            yield return 0.0;
+            foreach (double positiveValue in RealPositive_TestData())
+            {
+                yield return positiveValue;
+                yield return -positiveValue;
+            }
+            yield return Double.NaN;
+        }
+
+        public static IEnumerable<double> RealPositive_TestData ()
+        {
+            return (new double[] { 1.0 / Double.MaxValue, 1.0E-15, 1.0 / Math.PI, 1.0, Math.E, 1.0E10, Double.MaxValue, Double.PositiveInfinity });
+        }
+
         private static double SmallRandomPositiveDouble()
         {
             return RandomPositiveValue(1);

@@ -120,6 +120,76 @@ namespace System.Numerics
             }
         }
 
+        public static Complex operator +(double left, Complex right)
+        {
+            return new Complex(left + right.m_real, right.m_imaginary);
+        }
+
+        public static Complex operator +(Complex left, double right)
+        {
+            return new Complex(left.m_real + right, left.m_imaginary);
+        }
+
+        public static Complex operator -(double left, Complex right)
+        {
+            return new Complex(left - right.m_real, -right.m_imaginary);
+        }
+
+        public static Complex operator -(Complex left, double right)
+        {
+            return new Complex(left.m_real - right, left.m_imaginary);
+        }
+
+        public static Complex operator *(double left, Complex right)
+        {
+            return new Complex(left * right.m_real, left * right.m_imaginary);
+        }
+
+        public static Complex operator *(Complex left, double right)
+        {
+            return new Complex(left.m_real * right, left.m_imaginary * right);
+        }
+
+        public static Complex operator /(Complex left, double right)
+        {
+            return new Complex(left.m_real / right, left.m_imaginary / right);
+        }
+
+        public static Complex Add (double left, Complex right)
+        {
+            return left + right;
+        }
+
+        public static Complex Add(Complex left, double right)
+        {
+            return left + right;
+        }
+
+        public static Complex Subtract(double left, Complex right)
+        {
+            return left - right;
+        }
+
+        public static Complex Subtract(Complex left, double right)
+        {
+            return left - right;
+        }
+
+        public static Complex Multiply(double left, Complex right)
+        {
+            return left * right;
+        }
+
+        public static Complex Multiply(Complex left, double right)
+        {
+            return left * right;
+        }
+
+        public static Complex Divide(Complex left, double right)
+        {
+            return left / right;
+        }
+
         public static double Abs(Complex value)
         {
             return Hypot(value.m_real, value.m_imaginary);
